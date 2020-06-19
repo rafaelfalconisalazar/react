@@ -1,0 +1,17 @@
+{
+  "name": "exampleParalleloB",
+  "displayName": "exampleParalleloB",
+  "expo": {
+    "name": "exampleParalleloB",
+    "slug": "exampleParalleloB",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

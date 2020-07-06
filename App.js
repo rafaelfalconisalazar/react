@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
-import HomeScreen from './components/screens/index'
-
-
-export default function App() {
+import React from "react";
+import Principal from './components/screens/DrawerNavigation';
+export default function Hook() {
+  let text = 10.0;
   return (
-    <HomeScreen/>
+    <Principal/>
   );
-};
-
+}

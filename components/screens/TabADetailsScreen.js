@@ -33,7 +33,7 @@ export default function TabADetailsScreen({ navigation }) {
                         />
                         <FlatList
                             data={data}
-                            keyExtractor={({ id }, index) => id}
+                            keyExtractor={item => item._id}
                             renderItem={({ item }) => (
                                 <Text>{item._id}, {item.name}</Text>
                             )}

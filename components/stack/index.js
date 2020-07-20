@@ -1,43 +1,65 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Input } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
-import Screen1 from '../Drawer/screen1';
+import Principal from '../screens/DrawerNavigation';
+import AuthContext from "./context";
+function HomeScreen() {
+    const { login } = React.useContext(AuthContext);
 
-function HomeScreen(props) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Home Screen</Text>
-            <TouchableOpacity onPress={() => props.navigation.navigate('Screen1')}><Text>Screen1</Text></TouchableOpacity>
+            <Input
+                placeholder='BASIC INPUT'
+            />
+            <TouchableOpacity onPress={login}><Text>Login</Text></TouchableOpacity>
         </View>
     );
 }
 
-/*const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
-function App() {
+function Login() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Screen1" component={Screen1} />
-                <Stack.Screen name="Example" component={Screen2} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Stack.Navigator headerMode="none">
+            <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
     );
-}*/
+}
 
-const Drawer = createDrawerNavigator();
-
-function App() {
+const RootStack = createStackNavigator();
+function RootStackScreen({ user }) {
     return (
-        <NavigationContainer>
-            <Drawer.Navigator>
-                <Drawer.Screen name="Home" component={HomeScreen} />
-                <Drawer.Screen name="Screen1" component={Screen1} />
-            </Drawer.Navigator>
-        </NavigationContainer>
+        <RootStack.Navigator headerMode="none">
+            {user === null ? (
+
+                <RootStack.Screen name="App" component={Login} headerMode="none" />
+            ) : (
+
+                    <RootStack.Screen name="Auth" component={Principal} />
+                )
+            }
+        </RootStack.Navigator>
+    )
+}
+function App() {
+
+    const [user, setUser] = useState(null);
+    const authContext = useMemo(() => {
+        return {
+            login: () => {
+                setUser("1");
+            }
+        }
+    })
+    return (
+        <AuthContext.Provider value={authContext}>
+            <NavigationContainer>
+                <RootStackScreen user={user} />
+            </NavigationContainer>
+        </AuthContext.Provider>
 
     );
 }

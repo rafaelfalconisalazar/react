@@ -1,8 +1,7 @@
 import React from "react";
-import Principal from './components/screens/DrawerNavigation';
+import App from './components/stack/index';
 export default function Hook() {
-  let text = 10.0;
   return (
-    <Principal/>
+    <App/>
   );
 }

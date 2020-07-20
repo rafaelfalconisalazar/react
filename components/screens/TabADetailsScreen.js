@@ -6,7 +6,7 @@ export default function TabADetailsScreen({ navigation }) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
-    fetch('http://localhost:3000/api/v1/category')
+    fetch('https://unibe-demo.herokuapp.com/api/v1/category')
         .then((response) => response.json())
         .then((json) => setData(json))
         .catch((error) => console.error(error))
@@ -25,11 +25,11 @@ export default function TabADetailsScreen({ navigation }) {
                                     papitas: 'from papitas'
                                 }
                             )}
-                            title="Learn More"
+                            title="Details"
                         />
                         <Button
                             onPress={() => navigation.navigate('Tab', {}, navigation.navigate('TabB'))}
-                            title="Learn More"
+                            title="Tab B"
                         />
                         <FlatList
                             data={data}

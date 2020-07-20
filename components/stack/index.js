@@ -1,33 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Input } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import Principal from '../screens/DrawerNavigation';
 import AuthContext from "./context";
-function HomeScreen() {
-    const { login } = React.useContext(AuthContext);
-
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Home Screen</Text>
-            <Input
-                placeholder='BASIC INPUT'
-            />
-            <TouchableOpacity onPress={login}><Text>Login</Text></TouchableOpacity>
-        </View>
-    );
-}
-
-const Stack = createStackNavigator();
-
-function Login() {
-    return (
-        <Stack.Navigator headerMode="none">
-            <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
-    );
-}
+import Login from './loginStack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const RootStack = createStackNavigator();
 function RootStackScreen({ user }) {

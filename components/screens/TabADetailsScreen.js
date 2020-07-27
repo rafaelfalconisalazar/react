@@ -57,7 +57,7 @@ export default function TabADetailsScreen({ navigation }) {
                                     chevron
                                     onPress={() => navigation.navigate('TabA Details',
                                         {
-                                            papitas: item.category.category
+                                            papitas: item.id
                                         }
                                     )}
                                 />

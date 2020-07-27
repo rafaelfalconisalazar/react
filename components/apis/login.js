@@ -18,36 +18,39 @@ export default function HomeScreen() {
     const [modalVisible, setModalVisible] = useState(false);
     const storeData = async (value) => {
         try {
-          await AsyncStorage.setItem('@storage_Key', value)
+            await AsyncStorage.setItem('@storage_Key', value)
         } catch (e) {
-          // saving error
+            // saving error
         }
-      }
+    }
     function loginAp() {
-        fetch('https://api-products-rafael.herokuapp.com/api/v0/auth/login', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: "",
-                email: email,
-                name: "",
-                password: passwordForm
-            })
-        }).then((response) => response.json())
-            .then((json) => {
-                console.log(json.message);
-                if (json.message === undefined) {
-                    console.log("aqui");
-                    storeData( json.id)
-                    login()
-                } else {
-                    console.log("aqui no");
-                    setModalVisible(true);
-                }
-            })
+        try {
+            fetch('https://api-products-rafael.herokuapp.com/api/v0/auth/login', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: "",
+                    email: email,
+                    name: "",
+                    password: passwordForm
+                })
+            }).then((response) => response.json())
+                .then((json) => {
+                    console.log(json.message);
+                    if (json.message === undefined) {
+                        storeData(json.id)
+                        login()
+                    } else {
+                        setModalVisible(true);
+                    }
+                })
+        } catch (error) {
+            setModalVisible(true);
+        }
+
     }
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

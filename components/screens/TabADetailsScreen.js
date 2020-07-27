@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ActivityIndicator, FlatList } from 'react-native';
-
-
+import { ListItem } from 'react-native-elements'
+import AsyncStorage from '@react-native-community/async-storage';
 export default function TabADetailsScreen({ navigation }) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const [test, setTest] = useState('');
+    const getData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('@storage_Key')
+            if (value !== null) {
+                setTest(value);
+            }
+        } catch (e) {
+            // error reading value
+        }
+    }
 
-    fetch('https://unibe-demo.herokuapp.com/api/v1/category')
+    getData();
+
+    fetch('https://api-products-rafael.herokuapp.com/api/v0/products')
         .then((response) => response.json())
         .then((json) => setData(json))
         .catch((error) => console.error(error))
@@ -17,7 +30,7 @@ export default function TabADetailsScreen({ navigation }) {
             {isLoading ? (<ActivityIndicator />)
                 : (
                     <View>
-                        <Text>Welcome to TabA page</Text>
+                        <Text>Welcome to TabA page {test}</Text>
                         <Button onPress={() => navigation.openDrawer()} title="Open"></Button>
                         <Button
                             onPress={() => navigation.navigate('TabA Details',
@@ -27,17 +40,29 @@ export default function TabADetailsScreen({ navigation }) {
                             )}
                             title="Details"
                         />
-                        <Button
-                            onPress={() => navigation.navigate('Tab', {}, navigation.navigate('TabB'))}
-                            title="Tab B"
-                        />
                         <FlatList
                             data={data}
-                            keyExtractor={item => item._id}
+                            keyExtractor={item => item.id}
                             renderItem={({ item }) => (
-                                <Text>{item._id}, {item.name}</Text>
+                                <Text>{item.category.category}, {item.name}</Text>
                             )}
                         />
+                        {
+                            data.map((item, i) => (
+                                <ListItem
+                                    key={i}
+                                    title={item.name}
+                                    leftIcon={{ name: 'av-timer' }}
+                                    bottomDivider
+                                    chevron
+                                    onPress={() => navigation.navigate('TabA Details',
+                                        {
+                                            papitas: item.category.category
+                                        }
+                                    )}
+                                />
+                            ))
+                        }
                     </View>
                 )
             }

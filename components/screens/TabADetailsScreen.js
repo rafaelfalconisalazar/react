@@ -16,15 +16,21 @@ export default function TabADetailsScreen({ navigation }) {
             // error reading value
         }
     }
+    const synch = () => {
+        fetch('https://api-products-rafael.herokuapp.com/api/v0/products')
+            .then((response) => response.json())
+            .then((json) => setData(json))
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false));
+    }
 
     getData();
 
-    fetch('https://api-products-rafael.herokuapp.com/api/v0/products')
-        .then((response) => response.json())
-        .then((json) => setData(json))
-        .catch((error) => console.error(error))
-        .finally(() => setLoading(false));
-
+    useEffect(() => {
+        let isMounted = true;
+        synch();
+        return () => { isMounted = false };
+    }, []) 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             {isLoading ? (<ActivityIndicator />)

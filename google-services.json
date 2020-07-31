@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "58081290594",
+    "firebase_url": "https://example-unibe.firebaseio.com",
+    "project_id": "example-unibe",
+    "storage_bucket": "example-unibe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58081290594:android:2bec36b77acd076d0ca43b",
+        "android_client_info": {
+          "package_name": "com.unibe.edu.ec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58081290594-tq4dakcv3kvtnsiaeklfuuvg60oklrf6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-3slJ1p9rVI0_AG-bNQTDNfMwHGK-5P8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "58081290594-tq4dakcv3kvtnsiaeklfuuvg60oklrf6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

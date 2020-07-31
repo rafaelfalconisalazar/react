@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
-import {
-    Alert,
-    Modal,
-    StyleSheet,
-    Text,
-    TouchableHighlight,
-    View, TouchableOpacity
-} from "react-native";
-
+import {Alert,Modal,StyleSheet,Text,TouchableHighlight, View, TouchableOpacity} from "react-native";
+import * as Analytics from 'expo-firebase-analytics';
 import { Input } from 'react-native-elements';
 import AuthContext from "./context";
 import AsyncStorage from '@react-native-community/async-storage';
 export default function HomeScreen() {
+
     const { login } = React.useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [passwordForm, setPassword] = useState('');
@@ -23,7 +17,7 @@ export default function HomeScreen() {
             // saving error
         }
     }
-    function loginAp() {
+    function loginApp() {
         try {
             fetch('https://api-products-rafael.herokuapp.com/api/v0/auth/login', {
                 method: 'POST',
@@ -39,9 +33,13 @@ export default function HomeScreen() {
                 })
             }).then((response) => response.json())
                 .then((json) => {
-                    console.log(json.message);
                     if (json.message === undefined) {
                         storeData(json.id)
+                        Analytics.logEvent('login', {
+                            contentType: 'text',
+                            itemId: 'Expo rocks!',
+                            method: 'facebook'
+                        });
                         login()
                     } else {
                         setModalVisible(true);
@@ -80,13 +78,13 @@ export default function HomeScreen() {
             <Text>Home Screen</Text>
             <Input
                 placeholder='user'
-                onChangeText={email => setEmail(email)}
+                onChangeText={returnOnChangeText => setEmail(returnOnChangeText)}
             />
             <Input
                 placeholder='password'
                 onChangeText={passwordForm => setPassword(passwordForm)}
             />
-            <TouchableOpacity onPress={loginAp}><Text>Login</Text></TouchableOpacity>
+            <TouchableOpacity onPress={loginApp}><Text>Login</Text></TouchableOpacity>
         </View>
     );
 }

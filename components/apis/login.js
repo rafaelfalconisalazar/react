@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Alert,Modal,StyleSheet,Text,TouchableHighlight, View, TouchableOpacity} from "react-native";
+import { Alert, Modal, StyleSheet, Text, TouchableHighlight, View, TouchableOpacity } from "react-native";
 import * as Analytics from 'expo-firebase-analytics';
 import { Input } from 'react-native-elements';
 import AuthContext from "./context";

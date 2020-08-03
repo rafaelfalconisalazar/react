@@ -4,39 +4,16 @@ import { ListItem } from 'react-native-elements'
 import firebase from "../firebase/firebase";
 import "firebase/firestore";
 export default function TabBscreen({ navigation }) {
-    const citiesRef = firebase.firestore().collection('cities');
+    const citiesRef = firebase.firestore().collection('ciudades');
     const products = firebase.firestore().collection('products');
-    let iphone = products.doc('1').set({
-        description: "pixel 4a", name: "google pixel", price: 399.99
-    });
-    let setSf = citiesRef.doc('SF').set({
-        name: 'San Francisco', state: 'CA', country: 'USA',
-        capital: false, population: 860000
-    });
-    let setQuito = citiesRef.doc('UIO').set({
-        name: 'Quito', state: 'Pichincha', country: 'Ecuador',
-        capital: false, population: 860000
-    });
-    let setLa = citiesRef.doc('LA').set({
-        name: 'Los Angeles', state: 'CA', country: 'USA',
-        capital: false, population: 3900000
-    });
-    let setDc = citiesRef.doc('DC').set({
-        name: 'Washington, D.C.', state: null, country: 'USA',
-        capital: true, population: 680000
-    });
-    let setTok = citiesRef.doc('TOK').set({
-        name: 'Tokyo', state: null, country: 'Japan',
-        capital: true, population: 9000000
-    });
-    let setBj = citiesRef.doc('BJ').set({
-        name: 'Beijing', state: null, country: 'China',
-        capital: true, population: 21500000
-    });
+
     const [data, setData] = useState([]);
     const synch = () => {
+        let iphone = products.doc().set({
+            description: "motorolo moto g6 plus", name: "motorola", price: 250.55
+        });
         let a = [];
-        firebase.firestore().collection('products').get()
+        products.get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
                     a.push(doc.data());
@@ -48,12 +25,19 @@ export default function TabBscreen({ navigation }) {
             });
     }
     const oneDocument = () => {
-        let a = [];
-        firebase.firestore().collection('products').doc('2').get()
+
+        firebase.firestore().collection('products').where('price', '==', 50.50).get()
             .then((snapshot) => {
-                console.log(snapshot.data());
+                snapshot.forEach((doc) => {
+                    console.log(doc.data())
+                })
             }
             )
+            .catch((err) => {
+                console.log('Error getting documents', err);
+            });
+        firebase.firestore().collection('products').doc('1').get()
+            .then(snapshot =>   console.log(snapshot.data()))
             .catch((err) => {
                 console.log('Error getting documents', err);
             });
